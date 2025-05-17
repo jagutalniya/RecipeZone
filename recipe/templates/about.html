@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-6">About <span class="text-primary">RecipeZone</span></h1>
+        <p class="lead">Learn more about us and our mission 🍲</p>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <img src="{% static 'jagu.jpg' %}" alt="About Us" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 mt-4 mt-md-0">
+            <h3>Who We Are</h3>
+            <p>
+                RecipeZone is a community of passionate cooks, foodies, and kitchen explorers. 
+                We created this platform to help people share and discover amazing recipes 
+                from all over the world.
+            </p>
+            <h4 class="mt-3">Our Mission</h4>
+            <p>
+                To make cooking easier and more fun by offering a simple way to find and share 
+                delicious recipes for every taste and lifestyle.
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <h4>Made with ❤️ by Jagu</h4>
+        <p>Have questions? <a href="{% url 'contact' %}">Contact us</a></p>
+    </div>
+</div>
+{% endblock %}

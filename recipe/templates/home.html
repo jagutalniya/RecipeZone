@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- 🎉 Welcome Section -->
+<div class="text-center my-5">
+    <h1 class="display-5 fw-bold">Welcome to <span class="text-primary">RecipeZone</span> 🍽️</h1>
+    <p class="lead text-muted">Discover, Share, and Cook Delicious Recipes!</p>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'add_recipe' %}" class="btn btn-success mt-3">
+        <i class="fa fa-plus"></i> Add Your Recipe
+    </a>
+    {% else %}
+    <a href="{% url 'signup' %}" class="btn btn-primary mt-3">
+        <i class="fa fa-user-plus"></i> Join Now
+    </a>
+    {% endif %}
+</div>
+
+<hr class="my-5">
+
+<!-- 🌟 Featured Recipes Grid -->
+<div class="container">
+    <h2 class="mb-4 text-center">🍳 All Recipes</h2>
+    <div class="container mt-5">
+
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'home' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search recipes..." value="{{ request.GET.q }}">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa fa-search"></i> Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Recipes Listing -->
+    {% if recipes %}
+        <div class="row g-4">
+            {% for recipe in recipes %}
+            <div class="col-md-6 col-lg-4">
+                <!-- Recipe card here (your existing code) -->
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">No recipes found.</p>
+    {% endif %}
+
+</div>
+
+    {% if recipes %}
+    <div class="row g-4">
+        {% for recipe in recipes %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}"
+                    style="height: 250px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'images/no-image.jpg' %}" class="card-img-top" alt="No image"
+                    style="height: 250px; object-fit: cover;">
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                    <p class="card-text text-muted" style="flex-grow: 1;">
+                        {{ recipe.description|truncatewords:25 }}
+                    </p>
+                    <p class="small text-muted">Created on: {{ recipe.created_at|date:"F d, Y" }}</p>
+
+                    {% if user.is_authenticated %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'update' recipe.id %}" class="btn btn-outline-warning btn-sm">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                        <form method="POST" action="{% url 'delete' recipe.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center">
+        <i class="fa fa-info-circle"></i> No recipes found. Be the first to <a href="{% url 'add_recipe' %}">add one!</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

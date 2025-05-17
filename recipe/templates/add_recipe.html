@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-6 text-success fw-bold">Add Your <span class="text-primary">Recipe</span> 🍛</h1>
+        <p class="lead">Share your delicious creation with the world!</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">Recipe Title</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="title" 
+                        name="title" 
+                        placeholder="Eg: Spicy Paneer Tikka" 
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">Description</label>
+                    <textarea 
+                        class="form-control" 
+                        id="description" 
+                        name="description" 
+                        rows="4" 
+                        placeholder="Write a short description..." 
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label fw-semibold">Upload Image</label>
+                    <input 
+                        type="file" 
+                        class="form-control" 
+                        id="image" 
+                        name="image" 
+                        accept="image/*" 
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fa fa-plus me-1"></i> Submit Recipe
+                </button>
+            </form>
+
+            {% if success %}
+                <div class="alert alert-success mt-3" role="alert">
+                    ✅ Recipe added successfully!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

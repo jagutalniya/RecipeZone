@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-6 fw-bold">Contact <span class="text-primary">Us</span> 📩</h1>
+        <p class="lead text-muted">We’d love to hear from you! Feel free to drop your message.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Contact Form -->
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="e.g. Jagu Talniya" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="e.g. you@example.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label fw-semibold">Your Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fa fa-paper-plane me-1"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-md-5 mt-5 mt-md-0">
+            <div class="p-4 bg-light rounded shadow-sm h-100">
+                <h5 class="mb-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>Our Address</h5>
+                <p class="mb-4">RecipeZone HQ<br>Jaipur, Rajasthan, India</p>
+
+                <h5 class="mb-3"><i class="fa fa-phone text-primary me-2"></i>Phone</h5>
+                <p class="mb-4">+91 78509 84303</p>
+
+                <h5 class="mb-3"><i class="fa fa-envelope text-primary me-2"></i>Email</h5>
+                <p>support@recipezone.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
